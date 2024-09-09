@@ -17,6 +17,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { clearToken } from "../../../../redux/actions/userSlice";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 // Define types for items in the menu
 interface MenuItemType {
@@ -53,6 +54,7 @@ const ProfileMenuList: React.FC<ProfileMenuListProps> = ({ handleClose }) => {
     dispatch(clearToken());
     navigate("/login");
     handleClose();
+    toast.success("Logout successful. Have a great day!");
   };
 
   return (
@@ -100,9 +102,7 @@ const ProfileMenuList: React.FC<ProfileMenuListProps> = ({ handleClose }) => {
         <Box sx={{ color: theme.palette.primary.main, fontSize: "1.2em" }}>
           <LogoutIcon fontSize="inherit" />
         </Box>
-        <Typography sx={{ fontSize: "0.8em" }} >
-          Sign Out
-        </Typography>
+        <Typography sx={{ fontSize: "0.8em" }}>Sign Out</Typography>
       </MenuItem>
     </>
   );

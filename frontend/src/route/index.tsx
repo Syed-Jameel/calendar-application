@@ -6,6 +6,8 @@ import Loading from "../components/common/Loading";
 import Dashboard from "../components/dashboard";
 import FormComponent from "../components/form/index";
 import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
+import NotFound from "../components/common/NotFound";
 const DataTable = lazy(() => import("../components/dataTable"));
 const Calendar = lazy(() => import("../components/calendar"));
 const Login = lazy(() => import("../components/login"));
@@ -23,7 +25,11 @@ const VerifyUser = lazy(
 const appRouter: RouteObject[] = [
   {
     path: "/",
-    element:<PrivateRoute><App /></PrivateRoute>  ,
+    element: (
+      <PrivateRoute>
+        <App />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/",
@@ -42,7 +48,7 @@ const appRouter: RouteObject[] = [
         path: "/calendar",
         element: (
           <Suspense fallback={<Loading />}>
-           <Calendar />
+            <Calendar />
           </Suspense>
         ),
       },
@@ -56,7 +62,9 @@ const appRouter: RouteObject[] = [
     path: "/login",
     element: (
       <Suspense fallback={<Loading />}>
-        <Login />
+        <PublicRoute>
+          <Login />
+        </PublicRoute>
       </Suspense>
     ),
   },
@@ -64,7 +72,9 @@ const appRouter: RouteObject[] = [
     path: "/signup",
     element: (
       <Suspense fallback={<Loading />}>
-        <Signup />
+        <PublicRoute>
+          <Signup />
+        </PublicRoute>
       </Suspense>
     ),
   },
@@ -72,7 +82,9 @@ const appRouter: RouteObject[] = [
     path: "/forgot-password",
     element: (
       <Suspense fallback={<Loading />}>
-        <ForgotPassword />
+        <PublicRoute>
+          <ForgotPassword />
+        </PublicRoute>
       </Suspense>
     ),
   },
@@ -80,7 +92,9 @@ const appRouter: RouteObject[] = [
     path: "/reset-password",
     element: (
       <Suspense fallback={<Loading />}>
-        <ResetPassword />
+        <PublicRoute>
+          <ResetPassword />
+        </PublicRoute>
       </Suspense>
     ),
   },
@@ -88,9 +102,15 @@ const appRouter: RouteObject[] = [
     path: "/verify-user",
     element: (
       <Suspense fallback={<Loading />}>
-        <VerifyUser />
+        <PublicRoute>
+          <VerifyUser />
+        </PublicRoute>
       </Suspense>
     ),
+  },
+  {
+    path: "*", // Catch-all route for undefined paths
+    element: <NotFound />,
   },
 ];
 
